@@ -124,16 +124,15 @@ class problema_grafica_grafo(blocales.Problema):
         #Multiplicanrlos por el valor de dispercion
         #Numero Aleatorio entre -1,1
         #en caso de que no hay numero
-        #if dispersion == None:
-        #numero_Aleatorio=((random.uniform(-1,1)),(random.uniform(-1,1)) 
-
-        #else:
+        if dispersion == None:
+            numero_Aleatorio=((random.uniform(-1,1)),(random.uniform(-1,1)) 
+        else:
             #en caso que hay numero
-        #    numero_Aleatorio=((random.uniform(-1,1))*dispersion,(random.uniform(-1,1)*dispersion) 
+            numero_Aleatorio=((random.uniform(-1,1))*dispersion,(random.uniform(-1,1)*dispersion) 
 
         #sumando los valores de X e Y
-        #vecino2[vecino2.index(Lista_Estado[0])]=max(10,min(self.dim-10,vecino.index(Lista_Estado[0])+(random.uniform(-1,1))) 
-        #vecino2[vecino.index(Lista_Estado[1])]=max(10,min(self.dim-10,vecino.index(Lista_Estado[1])+(random.uniform(-1,1)))       
+        vecino2[vecino2.index(Lista_Estado[0])]=max(10,min(self.dim-10,vecino.index(Lista_Estado[0])+(random.uniform(-1,1))) 
+        vecino2[vecino.index(Lista_Estado[1])]=max(10,min(self.dim-10,vecino.index(Lista_Estado[1])+(random.uniform(-1,1)))       
         
         return vecino2
         
@@ -323,7 +322,8 @@ class problema_grafica_grafo(blocales.Problema):
         # ------ IMPLEMENTA AQUI TU CÓDIGO ------------------------------------
         #
         """
-        revisando toda la tupla, el angulo de cada V con todo los demas.
+        revisando toda la tupla, el angulo de cada dato en estado_dic con todo los demas, (menos el propio).
+        Se saca la suma de todos los angulos en estas comparaciones. El menor es regresado. 
         """
         suma_total=suma_anterior=0.0
         for V in estado_dic:
@@ -463,7 +463,20 @@ def main():
     # ------ IMPLEMENTA AQUI TU CÓDIGO ---------------------------------------
     #
     """
+    Seria bueno hacer un orden x de todos los vertices. En x orden, pero sin tomar en cuenta un vertice.
+    Tenemos, por ejemplo: Una lista de todos los vertices menos la A. Y de esta hacer una mini lista con sus cordenadas.
+    Hacer una lista. Podemos elejir una poblacion de X invdividuos y que cada individuo, 
+    sea una permutacion del resto de los vertices menos la A.
+    Teniendo lista nuestra poblacion y como queremos que sea lindo nuestro grafo. Podemos hacer que las cordenadas de A, 
+    cambien y esten mas alejadas del resto. Asi tendremos un grafo bonito. 
+    Cuando se asegure que el vertice A quedo bien. Pasamos al siguiente vertice B  y se repite. 
 
+    Cuando calculamos las distancias entre las aristas de A con el resto. Estas se cambian. Quedando en un punto mas 
+    alejado del resto(puesto que se busca ungrafo mas ordenado y lindo). 
+    Cuando se terminen de calcular con todo los vertices, se repite todo. Desde el primer vertice A, hasta el vertice H. 
+    
+    Con esto nos quedaria un grafo bonito. 
+    Usando algoritmos geneticos.  
 
     """
 
