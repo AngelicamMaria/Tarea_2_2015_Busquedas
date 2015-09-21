@@ -322,7 +322,38 @@ class problema_grafica_grafo(blocales.Problema):
         #
         # ------ IMPLEMENTA AQUI TU CÓDIGO ------------------------------------
         #
-        return 0
+        """
+        revisando toda la tupla, el angulo de cada V con todo los demas.
+        """
+        suma_total=suma_anterior=0.0
+        for V in estado_dic:
+            c=estado_dic[V]
+            a=c[0]
+            b=c[1]
+            for V2 in estado_dic:
+                if V2!=V:
+                    X = estado_dic[V2[0]]
+                    Y = estado_dic[V2[0]]
+                    x = X[0]-a, X[1] -b
+                    y = Y[0] -a, Y[1] -b
+                    #Formula del angulo de la recta... 
+                    x1=x[0]
+                    x2=x[1]
+                    y1=y[0]
+                    y2=y[1]
+                    parte1 = y1-y2
+                    parte2 = x1-x2
+                    m = parte1/parte2 #Pendiente
+                    if m < math.pi/4:
+                        suma_total+= math.pi/4 - m
+            if suma_anterior==0: #si suma anterior es igual a cero
+                suma_anterior=suma_total
+            if suma_total<suma_anterior:#si la diferencia de todos los angulos es distinta. 
+                                             # y es menor... es la nueva suma anterior. 
+                suma_anterior=suma_total
+            suma_total=0 #se reinicioe; valor
+            
+        return suma_anterior
 
     def estado2dic(self, estado):
         """
