@@ -28,6 +28,7 @@ import math
 import Image
 import PIL
 import sys
+#import gimpfu  
 import ImageDraw
 import time
 import scipy 
@@ -83,13 +84,14 @@ class problema_grafica_grafo(blocales.Problema):
         @param dispersion: Un flotante con el valor de dispersión para el vertice seleccionado
 
         @return: Una tupla con un estado vecino al estado de entrada.
-
-        """
+        
         vecino = list(estado)
+
         i = random.randint(0, len(vecino) - 1)
         vecino[i] = max(
             10, min(self.dim - 10, vecino[i] + random.choice([-1, 1])))
         return vecino
+        """
         #######################################################################
         #                          20 PUNTOS
         #######################################################################
@@ -109,7 +111,32 @@ class problema_grafica_grafo(blocales.Problema):
         # -- Comenta la función ya programada, programa inmediatamenta despues de este comentario 
         #    tu solución. ¿Como integras esta dispersión para utilizar la temperatura del temple simulado?
         #    ¿Que resultados obtienes con el nuevo método? Comenta tus resultados.
+       
+        #tupla o lista de vecinos
+        vecino2 = list(estado)
+        #Convirtiendo a lista.
+        Lista = self.estado2dic(estado)
+         #Se elije un vertice
+        i=random.choice(self.vertices)
+        #se elije el estado, aqui ya esta el estado con sus vertices elejidos.
+        Lista_Estado=Lista[i] 
+        #print Lista_Estado
+        #Multiplicanrlos por el valor de dispercion
+        #Numero Aleatorio entre -1,1
+        #en caso de que no hay numero
+        #if dispersion == None:
+        #numero_Aleatorio=((random.uniform(-1,1)),(random.uniform(-1,1)) 
 
+        #else:
+            #en caso que hay numero
+        #    numero_Aleatorio=((random.uniform(-1,1))*dispersion,(random.uniform(-1,1)*dispersion) 
+
+        #sumando los valores de X e Y
+        #vecino2[vecino2.index(Lista_Estado[0])]=max(10,min(self.dim-10,vecino.index(Lista_Estado[0])+(random.uniform(-1,1))) 
+        #vecino2[vecino.index(Lista_Estado[1])]=max(10,min(self.dim-10,vecino.index(Lista_Estado[1])+(random.uniform(-1,1)))       
+        
+        return vecino2
+        
     def costo(self, estado):
         """
         Encuentra el costo de un estado. En principio el costo de un estado es la cantidad de veces que dos
@@ -239,8 +266,29 @@ class problema_grafica_grafo(blocales.Problema):
         #
         #
         # ------ IMPLEMENTA AQUI TU CÓDIGO ------------------------------------
-        #
+        # Recoriendo cada vertice.
+        for V in (self.vertices):
+            #Las cordenadas donde se encuentra el vertice V que estamos revisando.
+            cordenadas=estado_dic[V]
+            filtro = filter(lambda par: V in par, self.aristas)
+            listas_Filtros = []
+            for x in xrange(len(filtro)): # el largo en x del filtro en el vertice V
+                print x
+                for y in xrange(len(filtro[x])): #x el nuvero de veces que dara este for, que es el largo que tiene x
+                    if filtro[x][y] != V:
+                        listas_Filtros.append(filtro[i][r]) #se agrega a la lista
+            combinar = list(combinations(listas_Filtros,2))
+           #print combinar
+            
+
+
+
+
+
         return 0
+
+    
+
 
     def criterio_propio(self, estado_dic):
         """
@@ -300,12 +348,14 @@ class problema_grafica_grafo(blocales.Problema):
         #print 'Dibujar> ' , dibujar
         for (v1, v2) in self.aristas:
             dibujar.line((lugar[v1], lugar[v2]), fill=(255, 0, 0))
-        # 
+        
         for v in self.vertices:
             dibujar.text(lugar[v], v, (0, 0, 0))
+        #pixeles(imagen,layer)
         imagen.show()
         #res = imagen.resize((255, 255))
         #res.save("C:\Users\GUES\Desktop\InternetProgram\Trabajos 2015_2\IA\Tarea_2_2015_2", "JPEG")
+
 
 def main():
     """
