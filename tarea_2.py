@@ -250,7 +250,7 @@ class problema_grafica_grafo(blocales.Problema):
         menor a pi/6 rad (30 grados). Los angulos de pi/6 o mayores no llevan ninguna penalización, y la penalizacion
         crece conforme el angulo es menor.
 
-        @param estado_dic: Diccionario cuyas llaves son los vértices del grafo y cuyos valores es una
+        @param estabdo_dic: Diccionario cuyas llaves son los vértices del grafo y cuyos valores es una
                            tupla con la posición (x, y) de ese vértice en el dibujo.
 
         @return: Un número.
@@ -267,25 +267,35 @@ class problema_grafica_grafo(blocales.Problema):
         #
         # ------ IMPLEMENTA AQUI TU CÓDIGO ------------------------------------
         # Recoriendo cada vertice.
+        costo =0.0
         for V in (self.vertices):
             #Las cordenadas donde se encuentra el vertice V que estamos revisando.
             cordenadas=estado_dic[V]
             filtro = filter(lambda par: V in par, self.aristas)
             listas_Filtros = []
             for x in xrange(len(filtro)): # el largo en x del filtro en el vertice V
-                print x
                 for y in xrange(len(filtro[x])): #x el nuvero de veces que dara este for, que es el largo que tiene x
-                    if filtro[x][y] != V:
-                        listas_Filtros.append(filtro[i][r]) #se agrega a la lista
-            combinar = list(combinations(listas_Filtros,2))
-           #print combinar
-            
-
-
-
-
-
-        return 0
+                    #print filtro
+                    if filtro[x][y] != V: #son lo svertices... no se guarde el vertice que se revisa en el for principal
+                        listas_Filtros.append(filtro[x][y]) #se agrega a la lista
+            combinar = list(itertools.combinations(listas_Filtros,2))
+            #print combinar
+            for Cord in combinar:
+                X = estado_dic[Cord[0]]
+                Y = estado_dic[Cord[1]]
+                x = X[0] - cordenadas[0], X[1] - cordenadas[1]
+                y = Y[0] - cordenadas[0], Y[1] - cordenadas[1] 
+                #Formula del angulo de la recta... 
+                x1=x[0]
+                x2=x[1]
+                y1=y[0]
+                y2=y[1]
+                parte1 = y1-y2
+                parte2 = x1-x2
+                m = parte1/parte2 #Pendiente
+                if m < math.pi/4:
+                    costo += math.pi/4 - m
+        return costo
 
     
 
@@ -403,7 +413,10 @@ def main():
     #
     # ¿Que encuentras en los resultados?, ¿Cual es el criterio mas importante?
     #
-
+    """
+    Como no me salio de lo la imagen... no lo se. Aunque la imagen se hizo, no se podria mostrar
+    
+    """
     ##########################################################################
     #                          20 PUNTOS
     ##########################################################################
@@ -418,6 +431,10 @@ def main():
     #
     # ------ IMPLEMENTA AQUI TU CÓDIGO ---------------------------------------
     #
+    """
+
+
+    """
 
 
 if __name__ == '__main__':
